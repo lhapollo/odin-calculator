@@ -23,7 +23,6 @@ const operate = () => {
 
 /*
 TO DO:
-- html calculator 
 - create functions that populate display
 - make calculator work
 - gotchas

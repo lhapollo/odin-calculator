@@ -40,6 +40,8 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2px;
     box-sizing: border-box;
+    padding-top:5px;
+    padding-bottom:2px;
 }
 
 button {
@@ -51,6 +53,10 @@ button {
     text-shadow: 0.2px 0.2px black;
 }
 
+button:hover{
+    cursor: pointer;
+}
+
 #zero {
     grid-column: span 2;
 }
@@ -59,11 +65,22 @@ button {
     background-color: #3b86ff;
 }
 
+.number:hover, #decimal:hover {
+    background-color: #5e99f7;
+}
 
 .function {
     background-color: #eb9e34;
 }
 
+.function:hover {
+    background-color: #e9b061;
+}
+
 .operator {
     background-color: #f56d58;
+}
+
+.operator:hover{
+    background-color: #f58270;
 }
