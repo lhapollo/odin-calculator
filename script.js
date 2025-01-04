@@ -5,6 +5,7 @@ let op = null;
 let op2 = null;
 let result = null;
 const buttons = document.querySelectorAll('button');
+let lastInputWasOp = false;
 
 const add = (a,b) => a + b;
 const subtract = (a,b) => a - b;
@@ -55,6 +56,9 @@ const clickButton = () => {
             } else if (buttons[i].id === 'clear') {
                 clearDisplay();
                 updateDisplay();
+            } else if (buttons[i].id === 'decimal') {
+                inputDecimal('.');
+                updateDisplay();
             }
         });
     }
@@ -82,16 +86,17 @@ const inputNum = (val) => {
             displayValue += val;
         }
     }
+    lastInputWasOp = false;
 }
 
 const inputOp = (operator) => {
+    if (lastInputWasOp) return;
+
     //if we have an operator, and user clicks another op
     if (op != null && op2 === null) {
         op2 = operator;
         num2 = displayValue;
-        console.log(num1, num2, op);
         result = operate(Number(num1), Number(num2), op);
-        console.log(result);
         displayValue = roundAccurately(result,15).toString();
         num1 = displayValue;
         result = null;
@@ -108,6 +113,7 @@ const inputOp = (operator) => {
         op = operator;
         num1 = displayValue;
     }
+    lastInputWasOp = true;
     console.log(num1, num2, op, op2);
 }
 
@@ -129,7 +135,7 @@ const inputEquals = () => {
     } else {
         num2 = displayValue;
         result = operate(Number(num1), Number(num2), op);
-        if (result === 'ERROR') displayValue = 'ERROR';
+        if (result === 'ERROR') displayValue = 'BRUH';
         else {
             displayValue = roundAccurately(result,15).toString();
             num1 = displayValue;
@@ -138,6 +144,15 @@ const inputEquals = () => {
             op2 = null;
             result = null;
         }
+    }
+}
+
+const inputDecimal = (dot) => {
+    if (displayValue === num1 || displayValue === num2) {
+        displayValue = '0';
+        displayValue += dot;
+    } else if (!displayValue.includes(dot)) {
+        displayValue += dot;
     }
 }
 
@@ -155,6 +170,5 @@ function roundAccurately(num, places) {
 }
 /*
 TO DO:
-- gotchas
 - extras
 */
